@@ -1,0 +1,655 @@
+<html>
+    <head>
+    </head>
+    <body>
+        <script>
+let total_q_number=50;//問題数//
+let total_number=10;//回答数//
+var ratio;//正答率//
+var time;//解答時間//
+var q_number=0;//問題番号初期化//
+var question;//問題文//
+var select1;//選択肢1//
+var select2;//選択肢2//
+var select3;//選択肢3//
+var select4;//選択肢4//
+var select5;//選択肢5//
+var correct;//正答//
+var answer;//正答//
+var compliment;//最終評価//
+var c_number=0;//正答数の初期化//
+var order=Array(total_number);//回答数の要素数の配列作成（今回は5）//
+order.fill(0);//orderが[0, 0, 0, 0, 0]に初期化//
+var k=0;//ループ変数//
+
+//問題、選択肢、正答を作成する関数//
+function select_question(){
+    if(order[q_number]==1){//問題番号が1//
+        question="y=x^2+x+1をxについて微分しなさい。";//問題文//
+        select1="y'=2x+1";//選択肢1//
+        select2="y'=x+1";//選択肢2//
+        select3="y'=2x";//選択肢3//
+        select4="y'=2x+2";//選択肢4//
+        select5="わからない";//選択肢5//
+        correct="1";//正答//
+    }
+    else if(order[q_number]==2){//問題番号が2//
+        question="y=3x^2-7x+6をxについて微分しなさい。";//問題文//
+        select1="y'=3x-7";//選択肢1//
+        select2="y'=6x-7";//選択肢2//
+        select3="y'=6x-1";//選択肢3//
+        select4="y'=2x-1";//選択肢4//
+        select5="わからない";//選択肢5//
+        correct="2";//正答//
+    }
+    else if(order[q_number]==3){//問題番号が3//
+        question="y=-3x+3をxについて微分しなさい。";//問題文//
+        select1="y'=-3x";//選択肢1//
+        select2="y'=-3x+1";//選択肢2//
+        select3="y'=-3";//選択肢3//
+        select4="y'=-3x+3";//選択肢4//
+        select5="わからない";//選択肢5//
+        correct="3";//正答//
+    }
+    else if(order[q_number]==4){//問題番号が4//
+        question="y=x^3+3x^2-4x+1をxについて微分しなさい。";//問題文//
+        select1="y'=3x^2+6x-3";//選択肢1//
+        select2="y'=3x^3+6x^2-4x^2+x";//選択肢2//
+        select3="y'=x^2+3x-4";//選択肢3//
+        select4="y'=3x^2+6x-4";//選択肢4//
+        select5="わからない";//選択肢5//
+        correct="4";//正答//
+    }
+    else if(order[q_number]==5){//問題番号が5//
+        question="y=-3x^3+7x^2-46x+31をxについて微分しなさい。";//問題文//
+        select1="y'=-9x^2+14x-46";//選択肢1//
+        select2="y'=-3x^2+7x-46";//選択肢2//
+        select3="y'=-9x^2+14x-15";//選択肢3//
+        select4="y'=-3x^2+7x-15";//選択肢4//
+        select5="わからない";//選択肢5//
+        correct="1";//正答//
+    }
+    else if(order[q_number]==6){
+        question="y=x^2-xをxについて微分しなさい。";
+        select1="y'=2x+1";
+        select2="y'=2x-1";
+        select3="y'=-2x-1";
+        select4="y'=-2x+1";
+        select5="わからない";
+        correct="2";
+    }
+    else if(order[q_number]==7){
+        question="y=x^2-4xについてxの値が1から4まで変化するときの平均変化率を求めよ。";
+        select1="1";
+        select2="2";
+        select3="3";
+        select4="4";
+        select5="わからない";
+        correct="1";
+    }
+    else if(order[q_number]==8){
+        question="y=x^2-4xについてx=3における微分係数を求めよ。";
+        select1="1";
+        select2="2";
+        select3="3";
+        select4="4";
+        select5="わからない";
+        correct="2";
+    }
+    else if(order[q_number]==9){
+        question="y=x^2-4xについてxの値がtにおける接線の傾きが1になるときtの値を求めよ。";
+        select1="t=1/2";
+        select2="t=3/2";
+        select3="t=5/2";
+        select4="t=7/2";
+        select5="わからない";
+        correct="3";
+    }
+    else if(order[q_number]==10){
+        question="y=x^3+2x^2-5xをxについて微分しなさい。";
+        select1="y'=3x^2+4x+5";
+        select2="y'=3x^2-4x-5";
+        select3="y'=-3x^2+4x-5";
+        select4="y'=3x^2+4x-5";
+        select5="わからない";
+        correct="4";
+    }
+    else if(order[q_number]==11){
+        question="y=(x-1)(x+2)^2をxについて微分しなさい。";
+        select1="y'=3x^2+6x";
+        select2="y'=6x^2+3x";
+        select3="y'=3x^2-6x";
+        select4="y'=6x^2-3x";
+        select5="わからない";
+        correct="1";
+    }
+    else if(order[q_number]==12){
+        question="y=x^2+xについて微分係数を求めよ。";
+        select1="3";
+        select2="-3";
+        select3="2";
+        select4="-2";
+        select5="わからない";
+        correct="2";
+    }
+    else if(order[q_number]==13){
+        question="y=-x^3+2x^2+3について微分係数を求めなさい。";
+        select1="-30";
+        select2="30";
+        select3="-20";
+        select4="20";
+        select5="わからない";
+        correct="3";
+    }
+    else if(order[q_number]==14){
+        question="y=x^3-4x上の点(2,0)における接線の方程式を求めよ。";
+        select1="y=8x+16";
+        select2="y=-8x+16";
+        select3="y=-8x-16";
+        select4="y=8x-16";
+        select5="わからない";
+        correct="4";
+    }
+    else if(order[q_number]==15){
+        question="点(2,-2)から曲線y=x^2-xに引いた接線の方程式を求めよ。";
+        select1="y=-x,y=7x-16";
+        select2="y=x,y=7x+16";
+        select3="y=-x,y=7x+16";
+        select4="y=x,y=7x+16";
+        select5="わからない";
+        correct="1";
+    }
+    else if(order[q_number]==16){
+        question="y=x^3-2x^2-4x+1の極値を求めよ。";
+        select1="x=-2/3で極小値67/27,x=2で極大値-7";
+        select2="x=-2/3で極大値67/27,x=2で極小値-7";
+        select3="x=-2/3で極大値0,x=2で極小値-7";
+        select4="x=-2/3で極大値67/27,x=2で極小値0";
+        select5="わからない";
+        correct="2";
+    }
+    else if(order[q_number]==17){
+        question="y=-x^3+3x^2+9xの極値を求めよ。";
+        select1="x=-1で極小値0,x=3で極大値27";
+        select2="x=1で極小値-5,x=-3で極大値0";
+        select3="x=-1で極小値-5,x=3で極大値27";
+        select4="x=1で極小値5,x=3で極大値27";
+        select5="わからない";
+        correct="3";
+    }
+    else if(order[q_number]==18){
+        question="3次関数y=ax^3+bx^2-3x-1がx=-1で極大となり、x=3で極小となるとき、定数a,bの値を求めよ。";
+        select1="a=1/3,b=1";
+        select2="-1/3,b=-1";
+        select3="a=-1/3,b=1";
+        select4="a=1/3,b=-1";
+        select5="わからない";
+        correct="4";
+    }
+    else if(order[q_number]==19){
+        question="関数y=x^3+ax^2+axが極値をもつとき、定数aのとり得る値の範囲を求めよ。";
+        select1="a<0またはa>3";
+        select2="a≦0またはa≧3";
+        select3="0≦a≦3";
+        select4="0<a<3";
+        select5="わからない";
+        correct="1";
+    } 
+    else if(order[q_number]==20){
+        question="関数y=2x^3-x^2-4x-1について、-1≦x≦2のとき最大値と最小値を求めよ。";
+        select1="x=0で最大値-1,x=1で最小値-4";
+        select2="x=2で最大値3,x=1で最小値-4";
+        select3="x=2で最大値3,x=0で最小値-1";
+        select4="x=2で最大値3,x=-1で最小値0";
+        select5="わからない";
+        correct="2";
+    }    
+    else if(order[q_number]==21){
+        question="関数y=-x^3+3ax^2+axが極値をもたないような定数aの値の範囲を求めよ。";
+        select1="a<-1/3またはa>0";
+        select2="a≦-1/3以下またはa≧0";
+        select3="-1/3≦a≦0";
+        select4="-1/3<a<0";
+        select5="わからない";
+        correct="3";
+    }    
+    else if(order[q_number]==22){
+        question="3次方程式y=x^3+3x^2-a=0が異なる3個の実数解をもつとき、実数aのとり得る値の範囲を求めよ。";
+        select1="a≦0またはa≧4";
+        select2="a<0またはa>4";
+        select3="0≦a≦4";
+        select4="0<a<4";
+        select5="わからない";
+        correct="4";
+    }    
+    else if(order[q_number]==23){
+        question="関数y=x^2-2について、xの値が-2から1まで変化するときの平均変化率を求めよ。";
+        select1="-1";
+        select2="-2";
+        select3="-3";
+        select4="-4";
+        select5="わからない";
+        correct="1";
+    }    
+    else if(order[q_number]==24){
+        question="関数y=x^2-2について、x=-1における微分係数を求めよ。";
+        select1="-1";
+        select2="-2";
+        select3="-3";
+        select4="-4";
+        select5="わからない";
+        correct="2";
+    }    
+    else if(order[q_number]==25){
+        question="曲線y=x^2-2上のx=tにおける接線の傾きが2になるときのtの値を求めよ。";
+        select1="t=-1";
+        select2="t=0";
+        select3="t=1";
+        select4="t=2";
+        select5="わからない";
+        correct="3";
+    }    
+    else if(order[q_number]==26){
+        question="y=x^2+3xを微分せよ。";
+        select1="y'=2x";
+        select2="y'=6x";
+        select3="y'=6";
+        select4="y'=2x+3";
+        select5="わからない";
+        correct="4";
+    }    
+    else if(order[q_number]==27){
+        question="y=x^3-3x^2-3x-6を微分せよ。";
+        select1="y'=3x^2-6x-3";
+        select2="y'=3x^2+6x+3";
+        select3="y'=3x^2-6x-9";
+        select4="y'=3x^2+6x-3";
+        select5="わからない";
+        correct="1";
+    }    
+    else if(order[q_number]==28){
+        question="y=(x+2)(x-4)^2を微分せよ。";
+        select1="y'=3x^2+12x";
+        select2="y'=3x^2-12x";
+        select3="y'=x^2+4x";
+        select4="y'=x^2-4x";
+        select5="わからない";
+        correct="2";
+    }    
+    else if(order[q_number]==29){
+        question="関数y=2x^2+4xについて、x=-3における微分係数を求めよ。";
+        select1="-4";
+        select2="4";
+        select3="-8";
+        select4="8";
+        select5="わからない";
+        correct="3";
+    }    
+    else if(order[q_number]==30){
+        question="関数y=x^3+4x^2+x+2について、x=-3における微分係数を求めよ。";
+        select1="1";
+        select2="2";
+        select3="3";
+        select4="4";
+        select5="わからない";
+        correct="4";
+    }    
+    else if(order[q_number]==31){
+        question="曲線y=x^3+x^2上の点(1,2)における接線の方程式を求めよ。";
+        select1="y=5x-3";
+        select2="y=5x+3";
+        select3="y=-5x-3";
+        select4="y=-5x+3";
+        select5="わからない";
+        correct="1";
+    }    
+    else if(order[q_number]==32){
+        question="点(1,-1)から曲線y=x^2+2xに引いた接線の方程式を求めよ。";
+        select1="y=-1,y=8x+9";
+        select2="y=-1,y=8x-9";
+        select3="y=1,y=8x+9";
+        select4="y=1,y=8x-9";
+        select5="わからない";
+        correct="2";
+    }    
+    else if(order[q_number]==33){
+        question="関数y=x^3+3x^2-9x-7の増減を調べよ。";
+        select1="x≦-2,0≦xで増加し、-2≦x≦0で減少する。";
+        select2="x≦-2,0≦xで減少し、-2≦x≦0で増加する。";
+        select3="x≦-3,1≦xで増加し、-3≦x≦1で減少する。";
+        select4="x≦-3,1≦xで減少し、-3≦x≦1で増加する。";
+        select5="わからない";
+        correct="3";
+    }    
+    else if(order[q_number]==34){
+        question="関数y=-2x^3+x^2+8xの極値を求めよ。";
+        select1="x=0で極小値0,x=1で極大値8";
+        select2="x=-1で極小値-5,x=0で極大値0";
+        select3="x=-1で極小値-5,x=1で極大値8";
+        select4="x=-1で極小値-5,x=4/3で極大値208/27";
+        select5="わからない";
+        correct="4";
+    }    
+    else if(order[q_number]==35){
+        question="関数y=x^3-3a^2xの-1≦x≦1におけるyの最大値をMとするとき、最大値Mの最小値とそのときのaの値を求めよ。";
+        select1="a=1/2,最小値1/4";
+        select2="a=±1/2,最小値1/4";
+        select3="a=-1/2,最小値1/2";
+        select4="a=±1/2,最小値1/2";
+        select5="わからない";
+        correct="2";
+    }    
+    else if(order[q_number]==36){
+        question="関数y=-3x^3+3x^2-x+1の極値を求めよ。";
+        select1="極値なし";
+        select2="x=1/3で極小値8/9";
+        select3="x=1/3で極大値8/9";
+        select4="x=0で極小値1,x=1で極大値0";
+        select5="わからない";
+        correct="1";
+    }    else if(order[q_number]==37){
+        question="関数y=-x^3+ax^2+bx+1がx=-1/3で極小となり、x=1で極大となるとき、定数a,bの値を求めよ。";
+        select1="a=-1,b=-1";
+        select2="a=1,b=1";
+        select3="a=-1,b=1";
+        select4="a=1,b=-1";
+        select5="わからない";
+        correct="2";
+    }    else if(order[q_number]==38){
+        question="関数y=-x^3+x^2-3ax+2が極値をもつとき、定数aのとり得る値の範囲を求めよ。";
+        select1="a≦1/9";
+        select2="a≧1/9";
+        select3="a<1/9";
+        select4="a>1/9";
+        select5="わからない";
+        correct="3";
+    }    else if(order[q_number]==39){
+        question="関数y=x^3+2ax^2+3x-4が極値をもたないような定数aの値の範囲を求めよ。";
+        select1="a<-3/2,3/2<a";
+        select2="a≦-3/2,3/2≦a";
+        select3="-3/2<a<3/2";
+        select4="-3/2≦a≦3/2";
+        select5="わからない";
+        correct="4";
+    }    else if(order[q_number]==40){
+        question="関数y=x^3-2x^2について、-1≦x≦2における最大値と最小値を求めよ。";
+        select1="x=0,2で最大値0,x=-1で最小値-3";
+        select2="x=0,2で最大値0,x=4/3で最小値-32/27";
+        select3="x=2で最大値0,x=-1で最小値-3";
+        select4="x=1で最大値-1,x=-1で最小値-3";
+        select5="わからない";
+        correct="1";
+    }    
+    else if(order[q_number]==41){
+        question="3次方程式2x^3-6x+a=0が異なる3個の実数解をもつとき、定数aのとり得る値の範囲を求めよ。";
+        select1="-4≦a≦4";
+        select2="-4<a<4";
+        select3="a≦-4,4≦a";
+        select4="a<-4,4<a";
+        select5="わからない";
+        correct="2";
+    }    
+    else if(order[q_number]==42){
+        question="関数y=x^3-xの導関数を求めよ。";
+        select1="y'=3x^2+1";
+        select2="y'=-3x^2+1";
+        select3="y'=3x^2-1";
+        select4="y'=-3x^2-1";
+        select5="わからない";
+        correct="3";
+    }    
+    else if(order[q_number]==43){
+        question="関数y=x^3+x^2-2のグラフ上のx=-1における接線の方程式を求めよ。";
+        select1="y=-x-1";
+        select2="y=-x+1";
+        select3="y=x+1";
+        select4="y=x-1";
+        select5="わからない";
+        correct="4";
+    }    
+    else if(order[q_number]==44){
+        question="関数y=2x^3-9x^2+16(-2≦x≦4)の最大値、最小値とそのときのXの値を求めよ。";
+        select1="X=0のとき最大値16,X=-2のとき最小値-36";
+        select2="X=3のとき最大値-11,X=-2のとき最小値-36";
+        select3="X=0のとき最大値16,X=4のとき最小値0";
+        select4="X=4のとき最大値0,X=-2のとき最小値-36";
+        select5="わからない";
+        correct="1";
+    }    
+    else if(order[q_number]==45){
+        question="関数y=ax^3+(7-a^2)x^2+bx+cはx=-1で極小値を、x=2で極大値をとり、極小値の絶対値の2倍が極大値に等しいとき、定数a,b,cを求めなさい。";
+        select1="a=2,b=12,c=34,6";
+        select2="a=-2,b=12,c=34,6";
+        select3="a=-2,b=-12,c=34,6";
+        select4="a=-2,b=-12,c=34,-6";
+        select5="わからない";
+        correct="2";
+    }    
+    else if(order[q_number]==46){
+        question="3次方程式2x^3-3x^2-12x+a=0の解が、2つの異なる負の数と1つの異なる正の数であるためのaの値の範囲を求めよ。";
+        select1="0<a<7";
+        select2="-7<a<20";
+        select3="-7<a<0";
+        select4="0<a<20";
+        select5="わからない";
+        correct="3";
+    }   
+    else if(order[q_number]==47){
+        question="関数y=x^3+px^2+qx+rはx=0で極大値4をとり、そのグラフはx軸に接するとき、定数p,q,rの値を求めよ。";
+        select1="p=3,q=0,r=4";
+        select2="p=-3,q=0,r=-4";
+        select3="p=3,q=0,r=-4";
+        select4="p=-3,q=0,r=4";
+        select5="わからない";
+        correct="4";
+    }    
+    else if(order[q_number]==48){
+        question="関数y=x^3-9x-a=0が異なる3つの実数解をもつとき、定数aの値の範囲を求めよ。";
+        select1="-6√3<a<6√3";
+        select2="-6√3≦a≦6√3";
+        select3="-3√6<a<3√6";
+        select4="-3√6≦a≦3√6";
+        select5="わからない";
+        correct="1";
+    }    
+    else if(order[q_number]==49){
+        question="y=x^2上に4点A(-1/2,1/4),B(-t,t^2),C(1/2,1/4),D(1/2,1/4)をとる。ただし0<t<1/2とする。四角形ABCDの面積が最大になるときtの値とそのときの面積Sを求めよ。";
+        select1="t=1/8,S=2/27";
+        select2="t=1/6,S=4/27";
+        select3="t=1/4,S=2/9";
+        select4="t=1/3,S=8/27";
+        select5="わからない";
+        correct="2";
+    }    
+    else if(order[q_number]==50){
+        question="関数y=x^3-ax^2+aのx≦2の範囲でyの最大値が105となるときの定数aの値を全て求めよ。";
+        select1="a=3,105";
+        select2="a=3,-105";
+        select3="a=-3,105";
+        select4="a=-3,-105";
+        select5="わからない";
+        correct="3";
+    }
+
+}
+
+//正答表示//
+function cor1(){
+    answer="1";//正答//
+    discri_answer();//関数呼び出し//
+}
+
+
+function cor2(){
+    answer="2";//正答//
+    discri_answer();//関数呼び出し//
+}
+
+
+function cor3(){
+    answer="3";//正答//
+    discri_answer();//関数呼び出し//
+}
+
+
+function cor4(){
+    answer="4";//正答//
+    discri_answer();//関数呼び出し//
+}
+
+function cor5(){
+    answer="5";//正答//
+    discri_answer();//関数呼び出し//
+}
+
+//正誤チェック//
+function discri_answer() {
+    column = document.getElementById("output");
+    if(correct == answer && q_number != total_number-1){
+        column.innerHTML = "<strong><font size='5' color='#ff0000'>選択肢[" + correct + "]　正解！！</font></strong> <input id='next_but' type='button' value='クリックして次へ進もう' onclick='next();'/><br><br>";
+        c_number++;
+        columnq = document.getElementById("c_num");
+        columnq.innerHTML = c_number;
+    }
+    else if(correct != answer && q_number != total_number-1){
+        column.innerHTML = "<strong><font size='5' color='#0000ff'>残念！！正解は[" + correct + "]</font></strong> <input id='next_but' type='button' value='クリックして次へ進もう' onclick='next();'/><br><br>";
+    }
+
+
+    else if(correct == answer && q_number == total_number-1){
+        c_number++;
+        ratio=c_number/total_number*100;
+        ratio=ratio.toFixed();
+        time=(Date.now()-time)/1000;
+        compliment="";
+        if(ratio<=60){
+            compliment="<font color='#000077' size='10'><i>[C評価]もう一度基本知識を身に着けましょう</i></font>";
+        }
+        else if(ratio>60 && ratio<=75){
+            compliment="<font color='#005500' size='10'><i>[B評価]もう少し練習しましょう</i></font>";
+        }
+        else if(ratio>75 && ratio<=90){
+            compliment="<font color='#ff4500' size='10'><i>[A評価]良く出来ていますが見直しをしましょう</i></font>";
+        }
+        else if(ratio>90){
+            compliment="<font color='#880000' size='10'><i>[S評価]完璧です、次のレベルに進もう</i></font>";
+        }
+        else{
+            compliment="[S評価]完璧です、次のレベルに進もう";
+        }
+
+        column.innerHTML = "<strong><font size='5' color='#ff0000'>選択肢[" + correct + "]　正解！！</font> <font size='5'>全問終了!!お疲れさまでした。</font></strong><br><br><font size='5'>かかった時間は<strong>" + time + "秒</strong>　正答率は" + c_number + "/" + total_number + "=<strong>" + ratio + "％</strong>でした</font><br><br><strong>" + compliment + "</strong><br><br><a href='area_high_s.html'>S評価の類題</a><br><br><a href='area_high_a.html'>A評価の類題</a><br><br><a href='area_high_b.html'>B評価の類題</a><br><br><a href='area_high_c.html'>C評価の類題</a><br><br><input id='next_but' type='button' value='もう一度挑戦する' onclick='reflesh();'/><br><br><input id='next_but' type='button' value='前のページに戻る' onclick='last();'/><br><br>";
+        columnq = document.getElementById("c_num");
+        columnq.innerHTML = c_number;
+    }
+
+
+    else if(correct != answer && q_number == total_number-1){
+        ratio=c_number/total_number*100;
+        ratio=ratio.toFixed(2)
+        time=(Date.now()-time)/1000;
+        compliment="";
+        if(ratio<=25){
+            compliment="<font color='#000077' size='10'><i>[C評価]もう一度基本知識を身に着けましょう</i></font>";
+        }
+        else if(ratio>25 && ratio<=70){
+            compliment="<font color='#005500' size='10'><i>[B評価]もう少し練習しましょう</i></font>";
+        }
+        else if(ratio>70 && ratio<=99){
+            compliment="<font color='#ff4500' size='10'><i>[A評価]良く出来ていますが見直しをしましょう</i></font>";
+        }
+        else if(ratio>99){
+            compliment="<font color='#880000' size='10'><i>[S評価]完璧です、次のレベルに進もう</i></font>";
+        }
+        else{
+            compliment="[S評価]完璧です、次のレベルに進もう";
+        }
+        column.innerHTML = "<strong><font size='5' color='#0000ff'>残念！！正解は[" + correct + "]</font> <font size='5'>全問終了!!お疲れさまでした。</font></strong><br><br><font size='5'>かかった時間は<strong>" + time + "秒</strong>　正答率は" + c_number + "/" + total_number + "=<strong>" + ratio + "％</strong>でした</font><br><br><strong>" + compliment + "</strong><br><br><a href='area_high_s.html'>S評価の類題</a><br><br><a href='area_high_a.html'>A評価の類題</a><br><br><a href='area_high_b.html'>B評価の類題</a><br><br><a href='area_high_c.html'>C評価の類題</a><br><br><input id='next_but' type='button' value='もう一度挑戦する' onclick='reflesh();'/><br><br><input id='next_but' type='button' value='前のページに戻る' onclick='last();'/><br><br>";
+    }
+
+    
+    document.getElementById("but1").disabled = true;
+    document.getElementById("but2").disabled = true;
+    document.getElementById("but3").disabled = true;
+    document.getElementById("but4").disabled = true;
+    document.getElementById("but5").disabled = true;
+}
+
+
+function reflesh(){
+    window.location.reload();
+}
+
+
+function last(){
+    window.history.back();
+}
+
+
+function next() {
+    q_number++;
+    column = document.getElementById("output");
+    column.innerHTML = "";
+    document.getElementById("but1").disabled = false;
+    document.getElementById("but2").disabled = false;
+    document.getElementById("but3").disabled = false;
+    document.getElementById("but4").disabled = false;
+    document.getElementById("but5").disabled = false;
+    select_question()
+    if(q_number!=total_number){
+        columnq = document.getElementById("q_num");
+        columnq.innerHTML = q_number+1;
+    }
+    columnq = document.getElementById("quest");
+    columnq.innerHTML = question;
+    column1 = document.getElementById("but1");
+    column1.value = "[1]　" + select1;
+    column2 = document.getElementById("but2");
+    column2.value = "[2]　" + select2;
+    column3 = document.getElementById("but3");
+    column3.value = "[3]　" + select3;
+    column4 = document.getElementById("but4");
+    column4.value = "[4]　" + select4;
+    column5 = document.getElementById("but5");
+    column5.value = "[5]　" + select5;
+}
+
+
+while(order[total_number-1] == 0 && k<10){
+    r=Math.floor(Math.random() * total_q_number + 1);
+    for(let j=0; j<total_number; j++){
+        if(order[j]==r){
+            break;
+        }
+        if(order[j]==0){
+            order[j]=r;
+            break;
+        }
+    }
+    k=k+1;
+}
+
+
+if(k==10){
+    for(let i=0; i<total_number; i++){
+        order[i]=i+1;
+    }
+}
+
+
+qu_number=q_number+1;
+select_question();
+document.open();
+document.write(total_number + "問中　<span id='q_num'>" + qu_number + "</span>問目　正解数<span id='c_num'>" + c_number + "</span>");
+document.write("<p><div id='quest'>" + question + "　選択肢をクリックしてください</div></p><br>");
+document.write("<div id='output'></div>");
+document.write("<input id='but1' type='button' style='text-align: left; width:75%;font-size:15px;' value=[1]　" + select1 + " onclick='cor1();'/><br><br>");
+document.write("<input id='but2' type='button' style='text-align: left; width:75%;font-size:15px;' value=[2]　" + select2 + " onclick='cor2();'/><br><br>");
+document.write("<input id='but3' type='button' style='text-align: left; width:75%;font-size:15px;' value=[3]　" + select3 + " onclick='cor3();'/><br><br>");
+document.write("<input id='but4' type='button' style='text-align: left; width:75%;font-size:15px;' value=[4]　" + select4 + " onclick='cor4();'/><br><br>");
+document.write("<input id='but5' type='button' style='text-align: left; width:75%;font-size:15px;' value=[5]　" + select5 + " onclick='cor5();'/><br><br>");
+document.close();
+time=Date.now();
+        </script>
+    </body>
+</html>

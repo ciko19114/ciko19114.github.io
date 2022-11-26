@@ -3,7 +3,7 @@
     </head>
     <body>
         <script>
-let total_q_number=50;//問題数//
+let total_q_number=10;//問題数//
 let total_number=2;//回答数//
 var ratio;//正答率//
 var time;//解答時間//
@@ -176,7 +176,7 @@ function discri_answer() {
             compliment="<font color='#ff4500' size='10'><i>[A評価]良く出来ていますが見直しをしましょう</i></font>";
         }
         else if(ratio>90){
-            compliment="<font color='#880000' size='10'><i>[C評価]完璧です、次のレベルに進もう</i></font>";
+            compliment="<font color='#880000' size='10'><i>[S評価]完璧です、次のレベルに進もう</i></font>";
         }
         else{
             compliment="完璧です、次のレベルに進もう";
@@ -194,16 +194,16 @@ function discri_answer() {
         time=(Date.now()-time)/1000;
         compliment="";
         if(ratio<=25){
-            compliment="<font color='#000077' size='10'><i>もう一度基本知識を身に着けましょう</i></font>";
+            compliment="<font color='#000077' size='10'><i>[C評価]もう一度基本知識を身に着けましょう</i></font>";
         }
         else if(ratio>25 && ratio<=70){
-            compliment="<font color='#005500' size='10'><i>もう少し練習しましょう</i></font>";
+            compliment="<font color='#005500' size='10'><i>[B評価]もう少し練習しましょう</i></font>";
         }
         else if(ratio>70 && ratio<=99){
-            compliment="<font color='#ff4500' size='10'><i>良く出来ていますが見直しをしましょう</i></font>";
+            compliment="<font color='#ff4500' size='10'><i>[A評価]良く出来ていますが見直しをしましょう</i></font>";
         }
         else if(ratio>99){
-            compliment="<font color='#880000' size='10'><i>完璧です、次のレベルに進もう</i></font>";
+            compliment="<font color='#880000' size='10'><i>[S評価]完璧です、次のレベルに進もう</i></font>";
         }
         else{
             compliment="完璧です、次のレベルに進もう";
@@ -259,7 +259,7 @@ function next() {
 }
 
 
-while(order[total_number-1] == 0 && k<10){
+while(order[total_number-1] == 0 && k<2){
     r=Math.floor(Math.random() * total_q_number + 1);
     for(let j=0; j<total_number; j++){
         if(order[j]==r){
@@ -274,7 +274,7 @@ while(order[total_number-1] == 0 && k<10){
 }
 
 
-if(k==10){
+if(k==2){
     for(let i=0; i<total_number; i++){
         order[i]=i+1;
     }

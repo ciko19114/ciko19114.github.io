@@ -549,10 +549,10 @@ function discri_answer() {
         ratio=ratio.toFixed(2)
         time=(Date.now()-time)/1000;
         compliment="";
-        if(ratio<=25){
+        if(ratio<=60){
             compliment="<font color='#000077' size='10'><i>[C評価]もう一度基本知識を身に着けましょう</i></font>";
         }
-        else if(ratio>25 && ratio<=70){
+        else if(ratio>60 && ratio<=70){
             compliment="<font color='#005500' size='10'><i>[B評価]もう少し練習しましょう</i></font>";
         }
         else if(ratio>70 && ratio<=99){

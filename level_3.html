@@ -1,0 +1,253 @@
+<html>
+    <head>
+    </head>
+    <body>
+        <script>
+let total_q_number=5;//問題数//
+let total_number=5;//回答数//
+var ratio;//正答率//
+var time;//解答時間//
+var q_number=0;//問題番号初期化//
+var question;//問題文//
+var select1;//選択肢1//
+var select2;//選択肢2//
+var select3;//選択肢3//
+var select4;//選択肢4//
+var select5;//選択肢5//
+var correct;//正答//
+var answer;//正答//
+var compliment;//最終評価//
+var c_number=0;//正答数の初期化//
+var order=Array(total_number);//回答数の要素数の配列作成（今回は5）//
+order.fill(0);//orderが[0, 0, 0, 0, 0]に初期化//
+var k=0;//ループ変数//
+
+//問題、選択肢、正答を作成する関数//
+function select_question(){
+    if(order[q_number]==1){//問題番号が1//
+        question="y=x^2+x+1をxについて微分しなさい。";//問題文//
+        select1="y'=2x+1";//選択肢1//
+        select2="y'=x+1";//選択肢2//
+        select3="y'=2x";//選択肢3//
+        select4="y'=2x+2";//選択肢4//
+        select5="わからない";//選択肢5//
+        correct="1";//正答//
+    }
+    else if(order[q_number]==2){//問題番号が2//
+        question="y=3x^2-7x+6をxについて微分しなさい。";//問題文//
+        select1="y'=3x-7";//選択肢1//
+        select2="y'=6x-7";//選択肢2//
+        select3="y'=6x-1";//選択肢3//
+        select4="y'=2x-1";//選択肢4//
+        select5="わからない";//選択肢5//
+        correct="2";//正答//
+    }
+    else if(order[q_number]==3){//問題番号が3//
+        question="y=-3x+3をxについて微分しなさい。";//問題文//
+        select1="y'=-3x";//選択肢1//
+        select2="y'=-3x+1";//選択肢2//
+        select3="y'=-3";//選択肢3//
+        select4="y'=-3x+3";//選択肢4//
+        select5="わからない";//選択肢5//
+        correct="3";//正答//
+    }
+    else if(order[q_number]==4){//問題番号が4//
+        question="y=x^3+3x^2-4x+1をxについて微分しなさい。";//問題文//
+        select1="y'=3x^2+6x-3";//選択肢1//
+        select2="y'=3x^3+6x^2-4x^2+x";//選択肢2//
+        select3="y'=x^2+3x-4";//選択肢3//
+        select4="y'=3x^2+6x-4";//選択肢4//
+        select5="わからない";//選択肢5//
+        correct="4";//正答//
+    }
+    else if(order[q_number]==5){//問題番号が5//
+        question="y=-3x^3+7x^2-46x+31をxについて微分しなさい。";//問題文//
+        select1="y'=-9x^2+14x-46";//選択肢1//
+        select2="y'=-3x^2+7x-46";//選択肢2//
+        select3="y'=-9x^2+14x-15";//選択肢3//
+        select4="y'=-3x^2+7x-15";//選択肢4//
+        select5="わからない";//選択肢5//
+        correct="1";//正答//
+    }
+}
+
+//正答表示//
+function cor1(){
+    answer="1";//正答//
+    discri_answer();//関数呼び出し//
+}
+
+
+function cor2(){
+    answer="2";//正答//
+    discri_answer();//関数呼び出し//
+}
+
+
+function cor3(){
+    answer="3";//正答//
+    discri_answer();//関数呼び出し//
+}
+
+
+function cor4(){
+    answer="4";//正答//
+    discri_answer();//関数呼び出し//
+}
+
+function cor5(){
+    answer="5";//正答//
+    discri_answer();//関数呼び出し//
+}
+
+//正誤チェック//
+function discri_answer() {
+    column = document.getElementById("output");
+    if(correct == answer && q_number != total_number-1){
+        column.innerHTML = "<strong><font size='5' color='#ff0000'>選択肢[" + correct + "]　正解！！</font></strong> <input id='next_but' type='button' value='クリックして次へ進もう' onclick='next();'/><br><br>";
+        c_number++;
+        columnq = document.getElementById("c_num");
+        columnq.innerHTML = c_number;
+    }
+    else if(correct != answer && q_number != total_number-1){
+        column.innerHTML = "<strong><font size='5' color='#0000ff'>残念！！正解は[" + correct + "]</font></strong> <input id='next_but' type='button' value='クリックして次へ進もう' onclick='next();'/><br><br>";
+    }
+
+
+    else if(correct == answer && q_number == total_number-1){
+        c_number++;
+        ratio=c_number/total_number*100;
+        ratio=ratio.toFixed();
+        time=(Date.now()-time)/1000;
+        compliment="";
+        if(ratio<=60){
+            compliment="<font color='#000077' size='10'><i>[C評価]もう一度基本知識を身に着けましょう</i></font>";
+        }
+        else if(ratio>60 && ratio<=75){
+            compliment="<font color='#005500' size='10'><i>[B評価]もう少し練習しましょう</i></font>";
+        }
+        else if(ratio>75 && ratio<=90){
+            compliment="<font color='#ff4500' size='10'><i>[A評価]良く出来ていますが見直しをしましょう</i></font>";
+        }
+        else if(ratio>90){
+            compliment="<font color='#880000' size='10'><i>[S評価]完璧です、次のレベルに進もう</i></font>";
+        }
+        else{
+            compliment="[S評価]完璧です、次のレベルに進もう";
+        }
+
+        column.innerHTML = "<strong><font size='5' color='#ff0000'>選択肢[" + correct + "]　正解！！</font> <font size='5'>全問終了!!お疲れさまでした。</font></strong><br><br><font size='5'>かかった時間は<strong>" + time + "秒</strong>　正答率は" + c_number + "/" + total_number + "=<strong>" + ratio + "％</strong>でした</font><br><br><strong>" + compliment + "</strong><br><br><a href='level_3_s.html'>S評価の類題</a><br><br><a href='level_3_a.html'>A評価の類題</a><br><br><a href='level_3_b.html'>B評価の類題</a><br><br><a href='level_3_c.html'>C評価の類題</a><br><br><input id='next_but' type='button' value='もう一度挑戦する' onclick='reflesh();'/><br><br><input id='next_but' type='button' value='前のページに戻る' onclick='last();'/><br><br>";
+        columnq = document.getElementById("c_num");
+        columnq.innerHTML = c_number;
+    }
+
+
+    else if(correct != answer && q_number == total_number-1){
+        ratio=c_number/total_number*100;
+        ratio=ratio.toFixed(2)
+        time=(Date.now()-time)/1000;
+        compliment="";
+        if(ratio<=60){
+            compliment="<font color='#000077' size='10'><i>[C評価]もう一度基本知識を身に着けましょう</i></font>";
+        }
+        else if(ratio>60 && ratio<=75){
+            compliment="<font color='#005500' size='10'><i>[B評価]もう少し練習しましょう</i></font>";
+        }
+        else if(ratio>75 && ratio<=90){
+            compliment="<font color='#ff4500' size='10'><i>[A評価]良く出来ていますが見直しをしましょう</i></font>";
+        }
+        else if(ratio>90){
+            compliment="<font color='#880000' size='10'><i>[S評価]完璧です、次のレベルに進もう</i></font>";
+        }
+        else{
+            compliment="[S評価]完璧です、次のレベルに進もう";
+        }
+        column.innerHTML = "<strong><font size='5' color='#0000ff'>残念！！正解は[" + correct + "]</font> <font size='5'>全問終了!!お疲れさまでした。</font></strong><br><br><font size='5'>かかった時間は<strong>" + time + "秒</strong>　正答率は" + c_number + "/" + total_number + "=<strong>" + ratio + "％</strong>でした</font><br><br><strong>" + compliment + "</strong><br><br><a href='level_3_s.html'>S評価の類題</a><br><br><a href='level_3_a.html'>A評価の類題</a><br><br><a href='level_3_b.html'>B評価の類題</a><br><br><a href='level_3_c.html'>C評価の類題</a><br><br><input id='next_but' type='button' value='もう一度挑戦する' onclick='reflesh();'/><br><br><input id='next_but' type='button' value='前のページに戻る' onclick='last();'/><br><br>";
+    }
+
+    
+    document.getElementById("but1").disabled = true;
+    document.getElementById("but2").disabled = true;
+    document.getElementById("but3").disabled = true;
+    document.getElementById("but4").disabled = true;
+    document.getElementById("but5").disabled = true;
+}
+
+
+function reflesh(){
+    window.location.reload();
+}
+
+
+function last(){
+    window.history.back();
+}
+
+
+function next() {
+    q_number++;
+    column = document.getElementById("output");
+    column.innerHTML = "";
+    document.getElementById("but1").disabled = false;
+    document.getElementById("but2").disabled = false;
+    document.getElementById("but3").disabled = false;
+    document.getElementById("but4").disabled = false;
+    document.getElementById("but5").disabled = false;
+    select_question()
+    if(q_number!=total_number){
+        columnq = document.getElementById("q_num");
+        columnq.innerHTML = q_number+1;
+    }
+    columnq = document.getElementById("quest");
+    columnq.innerHTML = question;
+    column1 = document.getElementById("but1");
+    column1.value = "[1]　" + select1;
+    column2 = document.getElementById("but2");
+    column2.value = "[2]　" + select2;
+    column3 = document.getElementById("but3");
+    column3.value = "[3]　" + select3;
+    column4 = document.getElementById("but4");
+    column4.value = "[4]　" + select4;
+    column5 = document.getElementById("but5");
+    column5.value = "[5]　" + select5;
+}
+
+
+while(order[total_number-1] == 0 && k<5){
+    r=Math.floor(Math.random() * total_q_number + 1);
+    for(let j=0; j<total_number; j++){
+        if(order[j]==r){
+            break;
+        }
+        if(order[j]==0){
+            order[j]=r;
+            break;
+        }
+    }
+    k=k+1;
+}
+
+
+if(k==5){
+    for(let i=0; i<total_number; i++){
+        order[i]=i+1;
+    }
+}
+
+
+qu_number=q_number+1;
+select_question();
+document.open();
+document.write(total_number + "問中　<span id='q_num'>" + qu_number + "</span>問目　正解数<span id='c_num'>" + c_number + "</span>");
+document.write("<p><div id='quest'>" + question + "　選択肢をクリックしてください</div></p><br>");
+document.write("<div id='output'></div>");
+document.write("<input id='but1' type='button' style='text-align: left; width:75%;font-size:15px;' value=[1]　" + select1 + " onclick='cor1();'/><br><br>");
+document.write("<input id='but2' type='button' style='text-align: left; width:75%;font-size:15px;' value=[2]　" + select2 + " onclick='cor2();'/><br><br>");
+document.write("<input id='but3' type='button' style='text-align: left; width:75%;font-size:15px;' value=[3]　" + select3 + " onclick='cor3();'/><br><br>");
+document.write("<input id='but4' type='button' style='text-align: left; width:75%;font-size:15px;' value=[4]　" + select4 + " onclick='cor4();'/><br><br>");
+document.write("<input id='but5' type='button' style='text-align: left; width:75%;font-size:15px;' value=[5]　" + select5 + " onclick='cor5();'/><br><br>");
+document.close();
+time=Date.now();
+        </script>
+    </body>
+</html>
